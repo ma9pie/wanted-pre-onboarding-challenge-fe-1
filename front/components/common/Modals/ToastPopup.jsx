@@ -1,9 +1,9 @@
-import { css, cx } from "@emotion/css";
-import styled from "@emotion/styled";
-import React, { useCallback, useEffect, useState } from "react";
 import InfoSvg from "@/svg/InfoSvg";
 import SuccessSvg from "@/svg/SuccessSvg";
 import WarningSvg from "@/svg/WarningSvg";
+import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
+import React, { useCallback, useEffect, useState } from "react";
 
 function ToastPopup(props) {
   const [isIOS, setIsIOS] = useState(false);

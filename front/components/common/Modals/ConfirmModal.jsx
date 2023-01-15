@@ -1,14 +1,11 @@
-import styled from "@emotion/styled";
-import React, { useCallback, useEffect } from "react";
-import ReactModal from "react-modal";
 import Modal from "@/components/common/Modals";
-import ControlUtils from "@/utils/ControlUtils";
+import styled from "@emotion/styled";
+import React, { useEffect } from "react";
+import ReactModal from "react-modal";
 
 ReactModal.setAppElement("#alert-modal");
 
 function ConfirmModal(props) {
-  const { doubleClickPrevention } = new Object(ControlUtils);
-
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
     return () => {
@@ -40,16 +37,17 @@ function ConfirmModal(props) {
             color="var(--main)"
             backgroundColor="var(--textBox)"
             onClick={() => {
-              doubleClickPrevention(() => props.onRequestCancle(), 200);
+              props.onRequestCancle();
               props.onRequestClose();
             }}
           >
             {props.cancleBtnText}
           </Button>
           <Button
+            color="white"
             backgroundColor="var(--brandColor)"
             onClick={() => {
-              doubleClickPrevention(() => props.onRequestConfirm(), 200);
+              props.onRequestConfirm();
               props.onRequestClose();
             }}
           >

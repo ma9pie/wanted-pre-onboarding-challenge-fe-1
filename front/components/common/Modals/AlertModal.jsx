@@ -1,15 +1,11 @@
-import styled from "@emotion/styled";
-import React, { useCallback, useEffect } from "react";
-import ReactModal from "react-modal";
-// import Button from "@/components/common/Buttons";
 import Modal from "@/components/common/Modals";
-import ControlUtils from "@/utils/ControlUtils";
+import styled from "@emotion/styled";
+import React, { useEffect } from "react";
+import ReactModal from "react-modal";
 
 ReactModal.setAppElement("#alert-modal");
 
 function AlertModal(props) {
-  const { doubleClickPrevention } = new Object(ControlUtils);
-
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
     return () => {
@@ -87,7 +83,7 @@ const Button = styled.div`
   height: 50px;
   line-height: 50px;
   text-align: center;
-  color: var(--yellowBtn);
+  color: white;
   background-color: ${(props) => props.backgroundColor};
   cursor: pointer;
 `;
