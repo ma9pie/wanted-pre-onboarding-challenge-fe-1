@@ -20,7 +20,8 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
 }
 
