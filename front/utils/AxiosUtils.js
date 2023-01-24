@@ -13,6 +13,7 @@ const AxiosUtils = Axios.create({
 
 AxiosUtils.interceptors.request.use(
   (req) => {
+    req.headers["Authorization"] = localStorage.getItem("Authorization");
     return req;
   },
   (error) => {

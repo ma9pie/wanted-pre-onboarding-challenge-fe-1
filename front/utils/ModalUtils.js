@@ -1,3 +1,4 @@
+import Modal from "@/components/common/Modals";
 import AlertModal from "@/components/common/Modals/AlertModal";
 import ConfirmModal from "@/components/common/Modals/ConfirmModal";
 import ToastPopup from "@/components/common/Modals/ToastPopup";
@@ -50,6 +51,33 @@ ModalUtils.render = (Component, props, id) => {
     }, 200);
   };
   ReactDOM.render(<Component {...props} isOpen={true}></Component>, target);
+};
+
+/**
+ * [모달]
+ * 빈 모달창
+ */
+ModalUtils.openModal = (obj) => {
+  const props = { ...defaultProps, ...obj };
+  const target = document.getElementById("modal");
+  props.unmount = () => ReactDOM.unmountComponentAtNode(target);
+  props.onRequestClose = () => {
+    ReactDOM.render(
+      <Modal {...props} isOpen={false}>
+        {props.component()}
+      </Modal>,
+      target
+    );
+    setTimeout(() => {
+      props.unmount();
+    }, 200);
+  };
+  ReactDOM.render(
+    <Modal {...props} isOpen={true}>
+      {props.component()}
+    </Modal>,
+    target
+  );
 };
 
 /**

@@ -5,10 +5,11 @@ import regExp from "@/constants/regExp";
 import CommonLayout from "@/layouts/CommonLayout";
 import { memberState } from "@/recoil/atom";
 import AxiosUtils from "@/utils/AxiosUtils";
+import LoginUtils from "@/utils/LoginUtils";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 function Login() {
@@ -19,6 +20,12 @@ function Login() {
   const [emailErrMsg, setEmailErrMsg] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (LoginUtils.isLogin()) {
+      router.push("/");
+    }
+  }, []);
 
   const handleEmail = (e) => {
     const { value } = e.target;

@@ -1,9 +1,14 @@
+import TodoTable from "@/components/home/TodoTable";
 import CommonLayout from "@/layouts/CommonLayout";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Home() {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <TodoTable></TodoTable>
+    </Wrapper>
+  );
 }
 
 export default Home;
