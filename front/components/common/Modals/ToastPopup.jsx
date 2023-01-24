@@ -5,14 +5,43 @@ import { css, cx } from "@emotion/css";
 import styled from "@emotion/styled";
 import React, { useCallback, useEffect, useState } from "react";
 
+let pid = -1;
 function ToastPopup(props) {
   const [isIOS, setIsIOS] = useState(false);
+  const [isOpen, setIsOpen] = useState(null);
 
   useEffect(() => {
     if (/iPhone|iPad/i.test(navigator.userAgent)) {
       setIsIOS(true);
     }
   }, []);
+
+  useEffect(() => {
+    let delay = 0;
+    delay = props.isOpen ? 100 : 0;
+    setIsOpen(isOpen ? false : null);
+    setTimeout(() => {
+      setIsOpen(true);
+    }, delay);
+    clearTimeout(pid);
+    pid = setTimeout(() => {
+      setIsOpen(false);
+      setTimeout(() => {
+        props.unmount();
+      }, 100);
+    }, 2000);
+    return () => {
+      clearTimeout(pid);
+      setIsOpen(null);
+    };
+  }, [props.unmount]);
+
+  const close = () => {
+    setIsOpen(false);
+    setTimeout(() => {
+      props.unmount();
+    }, 200);
+  };
 
   const getSvg = useCallback((type) => {
     switch (type) {
@@ -43,13 +72,13 @@ function ToastPopup(props) {
     <Wrapper bottom={isIOS ? "60px" : "26px"}>
       <Content
         className={
-          props.isOpen === null
+          isOpen === null
             ? cx(HideToastPopup)
-            : props.isOpen
+            : isOpen
             ? cx(OpenToastPopup)
             : cx(CloseToastPopup)
         }
-        onClick={() => props.onRequestClose()}
+        onClick={close}
       >
         <SvgWrapper>{getSvg(props.type)}</SvgWrapper>
         <TextBox>
@@ -92,7 +121,7 @@ const CloseToastPopup = css`
     }
     to {
       opacity: 0;
-      transform: scale(0);
+      transform: scale(0.5);
     }
   }
 `;
