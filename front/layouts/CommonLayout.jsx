@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import React from "react";
 import Footer from "@/components/layout/Footer";
 import Head from "@/components/layout/Head";
 import Header from "@/components/layout/Header";
+import styled from "@emotion/styled";
+import React from "react";
 
 function CommonLayout(props) {
   return (

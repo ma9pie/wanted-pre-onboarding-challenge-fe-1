@@ -5,21 +5,21 @@ import logo from "@/public/logo.svg";
 import { memberState } from "@/recoil/atom";
 import ModalUtils from "@/utils/ModalUtils";
 import styled from "@emotion/styled";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 
 function Header() {
-  const [member, setMember] = useRecoilState(memberState);
+  const member = useRecoilValue(memberState);
+  const resetMemberState = useResetRecoilState(memberState);
 
   const logout = () => {
     ModalUtils.openConfirm({
       message: "로그아웃 하시겠습니까?",
       onRequestConfirm: () => {
-        Cookies.remove("Authorization");
-        setMember({ ...member, token: "" });
+        localStorage.removeItem("Authorization");
+        resetMemberState();
       },
     });
   };
@@ -27,13 +27,15 @@ function Header() {
   return (
     <Wrapper>
       <Link href="/">
-        <Container>
-          <Image src={logo} width={30} height={30} alt="img"></Image>
-          <Title>TODO LIST</Title>
-        </Container>
+        <a>
+          <Container>
+            <Image src={logo} width={30} height={30} alt="img"></Image>
+            <Title>TODO LIST</Title>
+          </Container>
+        </a>
       </Link>
 
-      {member.email && member.token ? (
+      {member.token ? (
         <Container>
           <TextButton onClick={logout}>{member.email}</TextButton>
           <Theme></Theme>
@@ -41,10 +43,14 @@ function Header() {
       ) : (
         <Container>
           <Link href="/auth/login" passHref>
-            <ExtraSmallButton>로그인</ExtraSmallButton>
+            <a>
+              <ExtraSmallButton>로그인</ExtraSmallButton>
+            </a>
           </Link>
           <Link href="/auth/signup" passHref>
-            <ExtraSmallButton>회원가입</ExtraSmallButton>
+            <a>
+              <ExtraSmallButton>회원가입</ExtraSmallButton>
+            </a>
           </Link>
           <Theme></Theme>
         </Container>

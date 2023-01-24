@@ -1,7 +1,7 @@
 import AlertModal from "@/components/common/Modals/AlertModal";
 import ConfirmModal from "@/components/common/Modals/ConfirmModal";
 import ToastPopup from "@/components/common/Modals/ToastPopup";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 
 const ModalUtils = () => {};
 
@@ -19,7 +19,6 @@ const ModalUtils = () => {};
  * @param {Function} onRequestConfirm : 확인버튼을 누른 후 실행 될 함수
  * @param {Function} onRequestCancle : 취소버튼을 누른 후 실행 될 함수
  */
-
 const defaultProps = {
   isOpen: true,
   top: "50%",
@@ -38,42 +37,46 @@ const defaultProps = {
   onRequestCancle: () => {},
 };
 
-// Alert 모달
-ModalUtils.openAlert = (obj) => {
-  let props = { ...defaultProps, ...obj };
-
-  const modal = document.getElementById("alert-modal");
-  const root = ReactDOM.createRoot(modal);
-
-  const onRequestClose = () => {
-    props.isOpen = false;
-    root.render(<AlertModal {...props}></AlertModal>);
+/**
+ * 모달 렌더링 함수
+ */
+ModalUtils.render = (Component, props, id) => {
+  const target = document.getElementById(id);
+  props.unmount = () => ReactDOM.unmountComponentAtNode(target);
+  props.onRequestClose = () => {
+    ReactDOM.render(<Component {...props} isOpen={false}></Component>, target);
     setTimeout(() => {
-      root.unmount();
+      props.unmount();
     }, 200);
   };
-
-  props.onRequestClose = onRequestClose;
-  root.render(<AlertModal {...props}></AlertModal>);
+  ReactDOM.render(<Component {...props} isOpen={true}></Component>, target);
 };
 
-// Confirm 모달
+/**
+ * [Alert 모달]
+ * 확인 버튼만 있는 모달창
+ */
+ModalUtils.openAlert = (obj) => {
+  const props = { ...defaultProps, ...obj };
+  ModalUtils.render(AlertModal, props, "alert-modal");
+};
+
+/**
+ * [Confirm 모달]
+ * 취소, 확인 버튼이 있는 모달창
+ */
 ModalUtils.openConfirm = (obj) => {
-  let props = { ...defaultProps, ...obj };
+  const props = { ...defaultProps, ...obj };
+  ModalUtils.render(ConfirmModal, props, "confirm-modal");
+};
 
-  const modal = document.getElementById("confirm-modal");
-  const root = ReactDOM.createRoot(modal);
-
-  const onRequestClose = () => {
-    props.isOpen = false;
-    root.render(<ConfirmModal {...props}></ConfirmModal>);
-    setTimeout(() => {
-      root.unmount();
-    }, 200);
-  };
-
-  props.onRequestClose = onRequestClose;
-  root.render(<ConfirmModal {...props}></ConfirmModal>);
+/**
+ * [Toast 팝업]
+ * 하단 중앙에 뜨는 토스트 팝업
+ */
+ModalUtils.openToastPopup = (obj) => {
+  const props = { ...obj };
+  ModalUtils.render(ToastPopup, props, "toast-popup");
 };
 
 export default ModalUtils;

@@ -6,7 +6,6 @@ import CommonLayout from "@/layouts/CommonLayout";
 import { memberState } from "@/recoil/atom";
 import AxiosUtils from "@/utils/AxiosUtils";
 import styled from "@emotion/styled";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -46,7 +45,7 @@ function Login() {
       .then((res) => {
         const { token } = res.data;
         setMember({ ...member, email: email, token: token });
-        Cookies.set("Authorization", token);
+        localStorage.setItem("Authorization", token);
         router.push("/");
       })
       .finally(() => {
@@ -102,7 +101,7 @@ function Login() {
         </LargeButton>
 
         <TextLine>
-          <Link href="/signup" passHref>
+          <Link href="/auth/signup" passHref>
             <LinkText>회원가입하기</LinkText>
           </Link>
         </TextLine>
@@ -160,4 +159,5 @@ const LinkText = styled.p`
   color: var(--brandColor);
   text-decoration: underline;
   text-underline-position: under;
+  cursor: pointer;
 `;
