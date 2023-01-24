@@ -1,6 +1,7 @@
 import TextButton from "@/components/common/Buttons/TextButton";
 import CheckBox from "@/components/common/CheckBox";
 import TodoInput from "@/components/home/TodoInput";
+import { memberState } from "@/recoil/atom";
 import EditSvg from "@/svg/EditSvg";
 import PlusSvg from "@/svg/PlusSvg";
 import TrashCanSvg from "@/svg/TrashCanSvg";
@@ -8,11 +9,12 @@ import AxiosUtils from "@/utils/AxiosUtils";
 import ModalUtils from "@/utils/ModalUtils";
 import styled from "@emotion/styled";
 import React, { useEffect, useState, useRef } from "react";
+import { useRecoilValue } from "recoil";
 
 function TodoTable() {
-  const ref = useRef(null);
   const titleRef = useRef(null);
-  const contentRef = useRef(null);
+
+  const member = useRecoilValue(memberState);
   const [checkAll, setCheckAll] = useState(false);
   const [todoList, setTodoList] = useState([]);
   const [title, setTitle] = useState("");
@@ -24,6 +26,7 @@ function TodoTable() {
 
   // 항목 조회
   const getTodos = () => {
+    if (!member.token) return;
     AxiosUtils.get("/todos").then((res) => {
       setTodoList(res.data.data);
     });
@@ -119,6 +122,14 @@ function TodoTable() {
     });
   };
 
+  if (!member.token) {
+    return (
+      <Wrapper>
+        <PleaseLoginTextBox>로그인 후 이용 가능합니다.</PleaseLoginTextBox>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <Table>
@@ -158,7 +169,7 @@ function TodoTable() {
 
         {/*  테이블 목록 */}
         {todoList.map((item) => (
-          <Row key={item.id} ref={item.edit ? ref : null}>
+          <Row key={item.id}>
             <Column>
               <IconWrapper>
                 <CheckBox
@@ -183,7 +194,6 @@ function TodoTable() {
             <Column>
               {item.edit ? (
                 <Input
-                  ref={contentRef}
                   name="content"
                   placeholder="content"
                   value={content}
@@ -313,4 +323,11 @@ const EditText = styled.p`
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
+`;
+const PleaseLoginTextBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: var(--body16);
+  color: var(--sub);
 `;
