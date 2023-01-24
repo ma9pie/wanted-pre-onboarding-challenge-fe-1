@@ -3,16 +3,24 @@ import TextButton from "@/components/common/Buttons/TextButton";
 import Theme from "@/components/common/Theme";
 import logo from "@/public/logo.svg";
 import { memberState } from "@/recoil/atom";
+import LoginUtils from "@/utils/LoginUtils";
 import ModalUtils from "@/utils/ModalUtils";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
 function Header() {
   const member = useRecoilValue(memberState);
   const resetMemberState = useResetRecoilState(memberState);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLogin(LoginUtils.isLogin());
+    }, 0);
+  }, [member]);
 
   const logout = () => {
     ModalUtils.openConfirm({
@@ -35,7 +43,7 @@ function Header() {
         </a>
       </Link>
 
-      {member.token ? (
+      {isLogin ? (
         <Container>
           <TextButton onClick={logout}>{member.email}</TextButton>
           <Theme></Theme>
