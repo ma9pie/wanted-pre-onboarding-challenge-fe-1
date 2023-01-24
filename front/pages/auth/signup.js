@@ -29,43 +29,36 @@ function SignUp() {
   const handleInputs = (e) => {
     const { name } = e.target;
     const input = e.target.value.trim();
+    const tmpErrMsgs = { ...errMsgs };
+
     setInputs({ ...inputs, [name]: input });
-    setErrMsgs({
-      email: "",
-      password: "",
-      rePassword: "",
-    });
+
+    switch (name) {
+      case "email":
+        tmpErrMsgs.email =
+          input && !regExp.emailCheckRegExp.test(input)
+            ? "이메일 형식에 맞지 않습니다."
+            : "";
+        break;
+      case "password":
+        tmpErrMsgs.password =
+          input && !regExp.passwordCheckRegExp.test(input)
+            ? "최소 8자 이상, 하나 이상의 문자와 하나의 숫자를 입력해주세요."
+            : "";
+        break;
+      case "rePassword":
+        tmpErrMsgs.rePassword =
+          inputs.password !== input ? "비밀번호가 일치하지 않습니다." : "";
+        break;
+    }
+    setErrMsgs(tmpErrMsgs);
   };
 
   const signup = () => {
-    let validation = true;
-    const tmpErrMsgs = {};
-
-    if (!regExp.emailCheckRegExp.test(inputs.email)) {
-      tmpErrMsgs.email = "이메일 형식에 맞지 않습니다.";
-      validation = false;
-    }
-    if (!regExp.passwordCheckRegExp.test(inputs.password)) {
-      tmpErrMsgs.password =
-        "최소 8자 이상, 하나 이상의 문자와 하나의 숫자를 입력해주세요.";
-      validation = false;
-    }
-    if (inputs.password !== inputs.rePassword) {
-      tmpErrMsgs.rePassword = "비밀번호가 일치하지 않습니다.";
-      validation = false;
-    }
-
-    if (!validation) {
-      setErrMsgs({ ...errMsgs, ...tmpErrMsgs });
-      return;
-    }
-
     const req = {
       email: inputs.email,
       password: inputs.password,
     };
-
-    console.log(inputs);
 
     setIsLoading(true);
     AxiosUtils.post("/users/create", req)

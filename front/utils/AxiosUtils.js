@@ -1,8 +1,6 @@
 import ModalUtils from "@/utils/ModalUtils";
 import Axios from "axios";
 
-let isOpenModal = false;
-
 const headers = {
   "Content-Type": "application/json",
 };
@@ -44,46 +42,13 @@ AxiosUtils.interceptors.response.use(
       "############################ Axios END   #################################"
     );
 
-    // if (!isOpenModal) {
-    //   ModalUtils.openAlert({
-    //     message: `서버오류가\n 발생하였습니다.`,
-    //     onAfterClose: () => {
-    //       isOpenModal = false;
-    //     },
-    //   });
-    //   isOpenModal = true;
-    // }
-
-    // const errResult = error.response;
-
-    const errMsg = error.response.data.details;
+    const errMsg = error.response?.data.details;
 
     if (errMsg) {
       ModalUtils.openAlert({
         message: errMsg,
       });
     }
-
-    // if (errResult) {
-    //   switch (errResult.status) {
-    //     case 500:
-    //       ModalUtils.openAlert({
-    //         title: "서버오류",
-    //         message: `코드 : ${errResult.data.code}\n${errResult.data.message}`,
-    //       });
-    //       break;
-
-    //     case 502:
-    //       ModalUtils.openAlert({
-    //         title: "서버오류",
-    //         message: `Bad gateway (${errResult.status})\n${errResult.request.responseURL}`,
-    //       });
-    //       break;
-
-    //     default:
-    //       break;
-    //   }
-    // }
 
     return Promise.reject(error);
   }
