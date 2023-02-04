@@ -1,6 +1,6 @@
 # TODO LIST
 
-간다한 TODO LIST 서비스를 구현해봤습니다.
+간단한 TODO LIST 서비스를 구현해봤습니다.
 
 ### 📆 프로젝트 기간
 
@@ -45,6 +45,25 @@
     <div style="margin-top:8px;">
         <ul>
             <li>회원가입 페이지</li>
+        </ul>
+    </div>
+</div>
+
+<div style="margin-bottom:40px;">
+    <h5>Todo list</h5>
+    <div style="display:grid; gap:16px;">
+        <img src="/screenshot/lightMode/todo_list1.png">
+        <img src="/screenshot/lightMode/todo_list2.png">
+        <img src="/screenshot/lightMode/todo_list3.png">
+    </div>
+    <div style="display:grid; gap:16px;">
+        <img src="/screenshot/darkMode/todo_list1.png">
+        <img src="/screenshot/darkMode/todo_list2.png">
+        <img src="/screenshot/darkMode/todo_list3.png">
+    </div>
+    <div style="margin-top:8px;">
+        <ul>
+            <li>할일 목록 생성</li>
         </ul>
     </div>
 </div>
