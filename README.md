@@ -13,8 +13,8 @@
 <div style="margin-bottom:40px;">
     <h5>Home</h5>
     <div style="display:grid; gap:16px;">
-        <img src="/screenshot/lightMode/home.png">
-        <img src="/screenshot/darkMode/home.png">
+        <img src="/screenshot/lightMode/home.PNG">
+        <img src="/screenshot/darkMode/home.PNG">
     </div>
     <div style="margin-top:8px;">
         <ul>
@@ -26,8 +26,8 @@
 <div style="margin-bottom:40px;">
     <h5>Login</h5>
     <div style="display:grid; gap:16px;">
-        <img src="/screenshot/lightMode/login.png">
-        <img src="/screenshot/darkMode/login.png">
+        <img src="/screenshot/lightMode/login.PNG">
+        <img src="/screenshot/darkMode/login.PNG">
     </div>
     <div style="margin-top:8px;">
         <ul>
@@ -39,8 +39,8 @@
 <div style="margin-bottom:40px;">
     <h5>Signup</h5>
     <div style="display:grid; gap:16px;">
-        <img src="/screenshot/lightMode/signup.png">
-        <img src="/screenshot/darkMode/signup.png">
+        <img src="/screenshot/lightMode/signup.PNG">
+        <img src="/screenshot/darkMode/signup.PNG">
     </div>
     <div style="margin-top:8px;">
         <ul>
@@ -52,14 +52,14 @@
 <div style="margin-bottom:40px;">
     <h5>Todo list</h5>
     <div style="display:grid; gap:16px;">
-        <img src="/screenshot/lightMode/todo_list1.png">
-        <img src="/screenshot/lightMode/todo_list2.png">
-        <img src="/screenshot/lightMode/todo_list3.png">
+        <img src="/screenshot/lightMode/todo_list1.PNG">
+        <img src="/screenshot/lightMode/todo_list2.PNG">
+        <img src="/screenshot/lightMode/todo_list3.PNG">
     </div>
     <div style="display:grid; gap:16px;">
-        <img src="/screenshot/darkMode/todo_list1.png">
-        <img src="/screenshot/darkMode/todo_list2.png">
-        <img src="/screenshot/darkMode/todo_list3.png">
+        <img src="/screenshot/darkMode/todo_list1.PNG">
+        <img src="/screenshot/darkMode/todo_list2.PNG">
+        <img src="/screenshot/darkMode/todo_list3.PNG">
     </div>
     <div style="margin-top:8px;">
         <ul>
